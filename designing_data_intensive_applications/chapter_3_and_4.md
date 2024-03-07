@@ -53,7 +53,7 @@ Datomic indexes contain the datoms rather than just a pointer to them (they are 
 There are four indexes.  
 
 EAVT: Entity / Attribute / Value / Transaction - Contains all datoms.  
-Similar to a tuple in a relation database. Attributes that belong to an entity are close together.  
+Similar to a tuple in a relational database. Attributes that belong to an entity are close together.  
 
 AEVT: Attribute / Entity / Value / Transaction - Contains all datoms.  
 Similar to a tuple in a columnar database. The same attributes are close together.  
