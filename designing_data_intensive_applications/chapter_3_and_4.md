@@ -75,8 +75,40 @@ A log is an append only sequence of records ordered by time.
 
 https://poorlydefinedbehaviour.github.io/posts/logs/
 
+## Backward compatiblity and forward compatibility
+
+The book says:
+```
+This means that old and new versions of the code, and old and new data formats,
+may potentially all coexist in the system at the same time.
+```
+
+Reminders me of [how Amazon ensures rollback compatibility](https://aws.amazon.com/builders-library/ensuring-rollback-safety-during-deployments/).
+
+## Formats for encoding data
+
+The book talks about how the format of the data strucutures used to represent data in memory is different from the format used to store data on disk or to send it over the network.  
+
+This reminders that it is possible to use the same format in memory and to send data over the network by reinterpreting the in memory data as bytes and sending it over the network as is, the receiver reinterprets the bytes it receives as the expected message format. This process saves the time it takes to serialize and deserialize data.
+
+## Language-Specific formats
+
+The book says:
+```
+In order to restore data in the same object types, the decoding process needs to
+be able to instantiate arbitrary classes. This is frequently a source of security
+problems [5]
+```
+
+This reminders me of [log4shell](https://en.wikipedia.org/wiki/Log4Shell) where a vulnerability in the java logging library log4j allowed for remote code execution because it was possible to load java classes and execute the code from a malicious URL.[^log4shell]
+
+## Avro
+
+It's common for people to use Avro in combination with Kafka. Each message sent to kafka contains a schema id, the message consumer reads the message, picks the correct schema from a registry using the schema id and then decodes the message.
+
 ## References
 
 [I Heart Logs: Event Data, Stream Processing, and Data Integration](https://www.amazon.com/Heart-Logs-Stream-Processing-Integration/dp/1491909382)  
 [SSTable and Log Structured Storage: LevelDB](https://www.igvita.com/2012/02/06/sstable-and-log-structured-storage-leveldb/)  
 [^sorted_string_table]: https://www.igvita.com/2012/02/06/sstable-and-log-structured-storage-leveldb/
+[^log4shell]: https://www.cynet.com/attack-techniques-hands-on/log4shell-explained/
